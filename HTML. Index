@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHIV AI - Smart Assistant</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Arial,sans-serif;
+ background:#0b1020;color:white;
+}
+header{
+ padding:20px;background:#151d35;
+ display:flex;justify-content:space-between;
+ align-items:center;border-bottom:1px solid #303a56;
+}
+.logo{font-size:25px;font-weight:bold;color:#a78bfa}
+button{
+ border:0;border-radius:10px;padding:11px 16px;
+ background:#7656e8;color:white;font-weight:bold;
+ cursor:pointer;
+}
+main{max-width:850px;margin:auto;padding:25px 16px}
+.hero{text-align:center;padding:35px 5px}
+.hero h1{font-size:38px;margin:10px}
+.hero p{color:#bdc6dc}
+.tools{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:12px;margin:25px 0;
+}
+.tool{
+ background:#19233e;border:1px solid #35415e;
+ border-radius:14px;padding:20px;cursor:pointer;
+}
+.tool h3{margin:0 0 8px}
+.tool p{font-size:13px;color:#bac5df}
+.chat{
+ background:#19233e;border-radius:15px;padding:18px;
+}
+#messages{
+ height:190px;overflow:auto;padding:8px;
+ color:#e1e7f5;
+}
+input{
+ width:100%;padding:14px;border-radius:10px;
+ border:1px solid #47516b;background:#0b1020;
+ color:white;margin-bottom:10px;
+}
+footer{text-align:center;padding:25px;color:#9ca9c5}
+@media(min-width:600px){
+ .tools{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">✦ SHIV AI</div>
+ <button onclick="changeLanguage()" id="lang">मराठी</button>
+</header>
+
+<main>
+<section class="hero">
+ <h1 id="heading">Welcome to SHIV AI</h1>
+ <p id="sub">Your Smart AI Assistant</p>
+</section>
+
+<h2 id="toolsTitle">AI Tools</h2>
+<section class="tools">
+ <div class="tool" onclick="choose('AI Chat')">
+  <h3>💬 AI Chat</h3><p>Ask your questions</p>
+ </div>
+ <div class="tool" onclick="choose('Writing AI')">
+  <h3>✍️ Writing AI</h3><p>Create useful content</p>
+ </div>
+ <div class="tool" onclick="choose('Study AI')">
+  <h3>📚 Study AI</h3><p>Learn new things</p>
+ </div>
+ <div class="tool" onclick="choose('Translator')">
+  <h3>🌐 Translator</h3><p>Translate languages</p>
+ </div>
+ <div class="tool" onclick="choose('Ideas AI')">
+  <h3>💡 Ideas AI</h3><p>Discover new ideas</p>
+ </div>
+ <div class="tool" onclick="choose('Marathi AI')">
+  <h3>📝 Marathi AI</h3><p>Marathi writing help</p>
+ </div>
+</section>
+
+<section class="chat">
+ <h2 id="chatTitle">Chat with SHIV AI</h2>
+ <div id="messages">
+  Welcome! SHIV AI demo is ready.
+ </div>
+ <input id="question" placeholder="Type your question...">
+ <button onclick="sendMessage()" id="send">Send</button>
+</section>
+</main>
+
+<footer>© 2026 SHIV AI | Made with creativity</footer>
+
+<script>
+let marathi=false;
+
+function changeLanguage(){
+ marathi=!marathi;
+ document.getElementById("lang").innerText=
+ marathi?"English":"मराठी";
+ document.getElementById("heading").innerText=
+ marathi?"SHIV AI मध्ये आपले स्वागत आहे":"Welcome to SHIV AI";
+ document.getElementById("sub").innerText=
+ marathi?"तुमचा स्मार्ट AI सहाय्यक":"Your Smart AI Assistant";
+ document.getElementById("toolsTitle").innerText=
+ marathi?"AI सुविधा":"AI Tools";
+ document.getElementById("chatTitle").innerText=
+ marathi?"SHIV AI सोबत चॅट करा":"Chat with SHIV AI";
+ document.getElementById("question").placeholder=
+ marathi?"तुमचा प्रश्न लिहा...":"Type your question...";
+ document.getElementById("send").innerText=
+ marathi?"पाठवा":"Send";
+}
+
+function choose(name){
+ document.getElementById("question").value=name;
+ document.getElementById("question").focus();
+}
+
+function sendMessage(){
+ let input=document.getElementById("question");
+ let box=document.getElementById("messages");
+ let q=input.value.trim();
+ if(!q)return;
+ box.innerHTML+="<p><b>You:</b> "+
+ escapeText(q)+"</p>";
+ box.innerHTML+="<p><b>SHIV AI:</b> "+
+ (marathi?
+ "ही सुरुवातीची डेमो वेबसाइट आहे. प्रत्यक्ष AI जोडणी अजून बाकी आहे.":
+ "This is the SHIV AI demo. Live AI connection is not added yet.")+
+ "</p>";
+ input.value="";
+ box.scrollTop=box.scrollHeight;
+}
+
+function escapeText(s){
+ let d=document.createElement("div");
+ d.textContent=s;
+ return d.innerHTML;
+}
+</script>
+</body>
+</html>
